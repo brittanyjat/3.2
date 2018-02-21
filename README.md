@@ -9,8 +9,8 @@
 
 ### February 20, 2018
 1. Set up Auth0 on server.js
-  - successful redirect to React app front end.
+    - successful redirect to React app front end.
 2. Created basic structure for front-end routes.
-  a. Had a problem with the front end wanting to be on the back end port. Solved it by renaming my port variable in the .env file
+    - Had a problem with the front end wanting to be on the back end port. Solved it by renaming my port variable in the .env file
 
   
