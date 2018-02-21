@@ -1,4 +1,4 @@
-# Simulation 3 Helo Social Media App
+# Simulation 3 Helo
 
 ## Using 
 * React
@@ -8,4 +8,4 @@
 
 ### February 20, 2018
 - Set up Auth0 on server.js
-  - successful redirect to React app front end
+  [x] successful redirect to React app front end
