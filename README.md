@@ -9,7 +9,7 @@
 
 ---
 
-### February 20, 2018
+#### February 20, 2018
 1. Set up Auth0 on server.js
     - successful redirect to React app front end.
 2. Created basic structure for front-end routes.
@@ -17,9 +17,10 @@
 
 ---
 
-### February 21, 2018
+#### February 21, 2018
 1. Could not get Auth0 redirect to work and display correct route. :rage:
     - I switched from Hashrouter to BrowserRouter which somehow did the trick.
+2. Styled Auth login page.
 
 ---
 

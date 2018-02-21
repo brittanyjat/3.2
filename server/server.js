@@ -17,6 +17,8 @@ app.use(session({
 }));
 
 app.use(passport.initialize());
+app.use(passport.session());
+
 passport.use(new Auth0Strategy({
     domain: AUTH_DOMAIN,
     clientID: AUTH_CLIENT_ID,
@@ -24,7 +26,8 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-    console.log(profile);
+    // console.log(profile);
+    let { displayName, user_id, picture } = profile._json;
     done(null, profile)
 }));
 
@@ -41,6 +44,8 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3000/dashboard',
     failureRedirect: '/auth'
 }));
+
+console.log(session)
 
 
 app.listen(SERVER_PORT, () => {
