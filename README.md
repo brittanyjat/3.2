@@ -21,7 +21,10 @@
 1. Could not get Auth0 redirect to work and display correct route. :rage:
     - I switched from Hashrouter to BrowserRouter which somehow did the trick.
 2. Styled Auth login page.
+3. Initialized User table in database.
 
+##### Next Tasks:
+* Modify Auth0 to interact with sessions and database.
 ---
 
   

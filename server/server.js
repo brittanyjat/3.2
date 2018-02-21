@@ -45,7 +45,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/auth'
 }));
 
-console.log(session)
+// console.log(session)
 
 
 app.listen(SERVER_PORT, () => {
