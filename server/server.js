@@ -24,7 +24,7 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-    // console.log(profile);
+    console.log(profile);
     done(null, profile)
 }));
 
@@ -38,7 +38,7 @@ passport.deserializeUser((profile, done) => {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/',
+    successRedirect: 'http://localhost:3000/dashboard',
     failureRedirect: '/auth'
 }));
 
