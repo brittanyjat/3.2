@@ -25,6 +25,7 @@
 
 ##### Next Tasks:
 * Modify Auth0 to interact with sessions and database.
+    * either creating new user OR finding existing user.
 ---
 
   
