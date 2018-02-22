@@ -27,9 +27,19 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-    console.log(profile);
-    let { displayName, user_id, picture } = profile._json;
-    done(null, profile)
+    // console.log(profile);
+    let { sub, given_name, family_name, picture} = profile._json;
+    const db = app.get('db');
+
+    db.find_user([sub]).then(function (users) {
+        if(!users[0]) {
+            db.create_user([sub, given_name, family_name, picture]).then(user => {
+                return done(null, user[0].id)
+            })
+        } else {
+            return done(null, user[0].id)
+        }
+    })
 }));
 
 passport.serializeUser((profile, done) => {
