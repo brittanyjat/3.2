@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Auth from './Auth';
-import Dashboard from './Dashboard';
+import Dashboard from '../Components/Dashboard/Dashboard';
 import Profile from './Profile';
 import Search from './Search';
 

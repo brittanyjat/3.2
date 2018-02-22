@@ -23,14 +23,11 @@
 2. Styled Auth login page.
 3. Initialized User table in database.
 
-##### Next Tasks:
-~~* Modify Auth0 to interact with sessions and database.
-    * either creating new user OR finding existing user.~~
 ---
 
 #### February 22, 2018
 1. Created and styled header.
     - Need to add functionality to **search** icon.
-2. Completed 
+2. Connected auth0 to database either finding or creating new user.
 
   
