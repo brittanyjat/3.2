@@ -4,9 +4,10 @@ const express = require('express')
     , bodyParser = require('body-parser')
     , session = require('express-session')
     , passport = require('passport')
-    , Auth0Strategy = require('passport-auth0');
+    , Auth0Strategy = require('passport-auth0')
+    , massive = require('massive');
 
-const { SERVER_PORT, SECRET, AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL } = process.env;
+const { SERVER_PORT, SECRET, AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL, CONNECTION_STRING } = process.env;
 
 app.use(bodyParser.json());
 
@@ -26,8 +27,8 @@ passport.use(new Auth0Strategy({
     callbackURL: AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-    // console.log(profile);
-    let { displayName, user_id, picture } = profile._json;
+    console.log(profile);
+    // let { displayName, user_id, picture } = profile._json;
     done(null, profile)
 }));
 
@@ -48,6 +49,9 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 // console.log(session)
 
 
-app.listen(SERVER_PORT, () => {
-    console.log(`Hello, Brittany. Coming at you live from ${SERVER_PORT}!`)
+massive(CONNECTION_STRING).then(db => {
+    app.set('db', db);
+    app.listen(SERVER_PORT, () => {
+        console.log(`Hello, Brittany. Coming at you live from ${SERVER_PORT}!`)
+    })
 })

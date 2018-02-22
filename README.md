@@ -28,4 +28,8 @@
     * either creating new user OR finding existing user.
 ---
 
+#### February 22, 2018
+1. Created and styled header.
+    - Need to all on click to logout button.
+
   
