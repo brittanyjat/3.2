@@ -28,7 +28,7 @@ passport.use(new Auth0Strategy({
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
     console.log(profile);
-    // let { displayName, user_id, picture } = profile._json;
+    let { displayName, user_id, picture } = profile._json;
     done(null, profile)
 }));
 
@@ -46,7 +46,10 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/auth'
 }));
 
-// console.log(session)
+app.get('/auth/logout', function(req, res) {
+    req.logOut();
+    res.redirect('http://localhost:3000/')
+})
 
 
 massive(CONNECTION_STRING).then(db => {
