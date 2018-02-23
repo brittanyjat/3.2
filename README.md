@@ -29,5 +29,14 @@
 1. Created and styled header.
     - Need to add functionality to **search** icon.
 2. Connected auth0 to database either finding or creating new user.
+3. Set up redux store and reducer.
+4. Added endpoint on server /auth/me and made request from reducer to get user data.
+5. Used ComponentDidMount on Dashboard Component to gather user data and it worked!!
+
+---
+
+#### February 23, 2018
+1. Styled dashboard component.
+    - Need to add onClick to **'Edit Profile'** button 
 
   
