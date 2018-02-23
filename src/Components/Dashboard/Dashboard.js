@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getUserInfo } from '../../ducks/reducer';
 import './Dashboard.css';
 
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -21,33 +22,39 @@ class Dashboard extends Component {
         // console.log(this.props.user)
         const { firstname, lastname, picture } = this.props.user;
 
+        const { history } = this.props;
+
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
 
         return (
             <div>
                 <Header />
-                <div className='dashboard-parent'>
-                    <div className='dashboard-child'>
-                        <div className='dashboard-top'>
-                            <div className='profile-container'>
+                <div className='content'>
+                    <div className='top-section'>
 
-                                <div className='user-left'>{profilePic}</div>
+                        <div className='profile-container dashboard-view'>
 
-                                <div className='user-right'>
-                                    {firstname ? <h2>{firstname}</h2> : <h2>Brittany</h2>}
-                                    {lastname ? <h2>{lastname}</h2> : <h2>Jones</h2>}
-                                    <div className='edit-button-container'><button className='edit-button'>Edit Profile</button></div>
+                            <div className='user-left'>{profilePic}</div>
+
+                            <div className='user-right'>
+                                {firstname ? <h2>{firstname}</h2> : <h2>Brittany</h2>}
+                                {lastname ? <h2>{lastname}</h2> : <h2>Jones</h2>}
+                                <div className='edit-button-container'>
+                                    <button
+                                        className='edit-button'
+                                        onClick={() => history.push('/profile')}>Edit Profile
+                                        </button>
                                 </div>
-
                             </div>
 
-                            <div className='welcome'>
-                                <p>Welcome to Helo! Find recommended friends based on your similarities, and even search for them by name. The more you update your profile, the better recommendations we can make!</p>
-                            </div>
                         </div>
 
-                        <div>Recommended Friends</div>
+                        <div className='welcome'>
+                            <p>Welcome to Helo! Find recommended friends based on your similarities, and even search for them by name. The more you update your profile, the better recommendations we can make!</p>
+                        </div>
                     </div>
+
+                    <div className='bottom-section'>Recommended Friends</div>
                 </div>
             </div>
         )

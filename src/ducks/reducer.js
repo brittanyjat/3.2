@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const initialState = {
-    user: {}
+    user: {
+        firstname: 'Rilo',
+        lastname: 'Lewis',
+        picture: 'http://static.adweek.com/adweek.com-prod/wp-content/uploads/files/news_article/tt-dorito-dog-days-hed2-2013.jpg'
+    }
 };
 
 const GET_USER_INFO = 'GET_USER_INFO';

@@ -37,6 +37,8 @@
 
 #### February 23, 2018
 1. Styled dashboard component.
-    - Need to add onClick to **'Edit Profile'** button 
+2. Styled Profile top section. 
+    - Need to add functionality to **update** and **cancel** button.
+
 
   
