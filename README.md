@@ -39,6 +39,12 @@
 1. Styled dashboard component.
 2. Styled Profile top section. 
     - Need to add functionality to **update** and **cancel** button.
+3. Created and styled the edit section of profile. 
+4. Started adding handlers for inputs in edit section.
+    - Need to finish setting up redux to handle the update request.
+    - Haven't even touched server side of put request.
+        - Did create the sql edit_user but have not tested it.
+
 
 
   

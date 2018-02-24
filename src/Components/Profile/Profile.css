@@ -1,0 +1,44 @@
+.edit-container {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* border: solid 1px fuchsia; */
+}
+
+.profile-input {
+    margin-top: -10px;
+    display: flex;
+    flex-direction: column;
+}
+
+h4 {
+    font-weight: 400;
+    box-sizing: border-box;
+    padding-left: 15px;
+    margin-bottom: 3px;
+}
+
+input {
+    width: 100%;
+    font-weight: 400;
+    border: 1px solid #ff9770;
+    font-size: 20px;
+    padding: 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+select {
+    font-weight: 100%;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px
+}
+
+.left-right-edit {
+    width: 225px;
+    margin-top: 20px;
+    margin-left: 60px;
+    /* border: 1px solid saddlebrown; */
+}

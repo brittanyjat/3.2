@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Auth from './Auth';
 import Dashboard from '../Components/Dashboard/Dashboard';
-import Profile from './Profile';
+import Profile from '../Components/Profile/Profile';
 import Search from './Search';
 
 class App extends Component {

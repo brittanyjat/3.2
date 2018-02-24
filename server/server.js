@@ -63,7 +63,6 @@ app.get('/auth/me', (req, res, next) => {
     if(!req.user) {
         return res.status(404).send('User not found')
     } else {
-        // console.log(req.user)
         return res.status(200).send(req.user)
     }
 })
@@ -73,7 +72,7 @@ app.get('/auth/logout', function (req, res) {
     res.redirect('http://localhost:3000/')
 })
 
-// console.log(session)
+
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db);
