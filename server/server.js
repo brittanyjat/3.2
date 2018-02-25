@@ -8,6 +8,7 @@ const express = require('express')
     , massive = require('massive');
 
 const { SERVER_PORT, SECRET, AUTH_DOMAIN, AUTH_CLIENT_ID, AUTH_CLIENT_SECRET, AUTH_CALLBACK_URL, CONNECTION_STRING } = process.env;
+const userController = require('./controllers/user');
 
 app.use(bodyParser.json());
 
@@ -47,7 +48,7 @@ passport.serializeUser((id, done) => {
 })
 
 passport.deserializeUser((id, done) => {
-    app.get('db').find_session_user([id])
+    app.get('db').find_user([id])
         .then(function (user) {
             return done(null, user[0])
         })
@@ -60,7 +61,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 }));
 
 app.get('/auth/me', (req, res, next) => {
-    if(!req.user) {
+    if (!req.user) {
         return res.status(404).send('User not found')
     } else {
         return res.status(200).send(req.user)
@@ -72,6 +73,7 @@ app.get('/auth/logout', function (req, res) {
     res.redirect('http://localhost:3000/')
 })
 
+app.get('/api/profile/:id', userController.user);
 
 
 massive(CONNECTION_STRING).then(db => {

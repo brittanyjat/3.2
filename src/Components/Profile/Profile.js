@@ -1,41 +1,40 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getUserInfo } from '../../ducks/reducer';
 import Header from '../Header';
 import './Profile.css';
+import axios from 'axios';
 
 class Profile extends Component {
     constructor(props){
         super(props);
 
-        const { user } = this.props;
-
         this.state = {
-            firstname: user.firstname,
-            lastname: user.lastname,
-            picture: user.picture,
-            gender: user.gender,
-            haircolor: user.haircolor,
-            eyecolor: user.eyecolor,
-            hobby: user.hobby,
-            birthday: user.birthday,
-            birthmonth: user.birthmonth,
-            birthyear: user.birthyear
+            user: {}
         }
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount(){
+        const { id } = this.props.match.params;
+        axios.get(`/api/profile/${id}`).then(res => {
+            this.setState({
+                user: res.data
+            });
+        })
+    }
+
     handleChange(prop, value){
-        this.setState({
-            [prop]: value
-        });
+        this.setState(prevState => ({
+            user: {
+                ...prevState.user,
+                [prop]: value
+            }
+        }))
     }
 
 
     render() {
-        // console.log(this.props)
-        // console.log(this.state)
-        const { firstname, lastname, picture, gender, haircolor, eyecolor, hobby, birthday, birthmonth, birthyear } = this.state;
+        console.log(this.state.user)
+        const {firstname, lastname, picture, gender, haircolor, eyecolor, hobby, birthday, birthmonth, birthyear } = this.state.user;
 
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
 
@@ -49,8 +48,8 @@ class Profile extends Component {
                             <div className='user-left'>{profilePic}</div>
 
                             <div className='user-right'>
-                                {firstname ? <h2>{firstname}</h2> : <h2>Brittany</h2>}
-                                {lastname ? <h2>{lastname}</h2> : <h2>Jones</h2>}
+                                <h2>{firstname}</h2>
+                                <h2>{lastname}</h2>
                             </div>
 
                             <div className='update-cancel-container'>
@@ -70,15 +69,15 @@ class Profile extends Component {
                             <div className='left-right-edit'>
                                 <div className='profile-input'>
                                     <h4>First Name</h4>
-                                    <input type='text' value={firstname} onChange={(e) => this.handleChange('firstname', e.target.value)}/>
+                                    <input type='text'  value={firstname || ''} onChange={(e) => this.handleChange('firstname', e.target.value)}/>   
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Last Name</h4>
-                                    <input type='text' placeholder={lastname} onChange={(e) => this.handleChange('lastname', e.target.value)}/>
+                                    <input type='text' value={lastname || ''} onChange={(e) => this.handleChange('lastname', e.target.value)}/>
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Gender</h4>
-                                    <select value={gender} onChange={(e) => this.handleChange('gender', e.target.value)}>
+                                    <select value={gender || ''} onChange={(e) => this.handleChange('gender', e.target.value)}>
                                         <option disabled>-- Select --</option>
                                         <option value='Male'>Male</option>
                                         <option value='Female'>Female</option>
@@ -86,7 +85,7 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Hair Color</h4>
-                                    <select value={haircolor} onChange={(e) => this.handleChange('haircolor', e.target.value)}>
+                                    <select value={haircolor || ''} onChange={(e) => this.handleChange('haircolor', e.target.value)}>
                                         <option disabled>-- Select --</option>
                                         <option value='Brown'>Brown</option>
                                         <option value='Blue'>Blue</option>
@@ -98,7 +97,7 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Eye Color</h4>
-                                    <select value={eyecolor}>
+                                    <select value={eyecolor || ''} onChange={(e) => this.handleChange('eyecolor', e.target.value)}>
                                         <option disabled>-- Select --</option>
                                         <option value='Brown'>Brown</option>
                                         <option value='Blue'>Blue</option>
@@ -109,7 +108,7 @@ class Profile extends Component {
                             <div className='left-right-edit'>
                                 <div className='profile-input'>
                                     <h4>Hobby</h4>
-                                    <select value={hobby}>
+                                    <select value={hobby || ''} onChange={(e) => this.handleChange('hobby', e.target.value)}>
                                         <option disabled>-- Select --</option>
                                         <option value='Video Games'>Video Games</option>
                                         <option value='Hiking'>Hiking</option>
@@ -119,15 +118,15 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Day</h4>
-                                    <input type='text' placeholder={birthday} />
+                                    <input type='text' onChange={(e) => this.handleChange('birthday', e.target.value)}/>
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Month</h4>
-                                    <input type='text' placeholder={birthmonth} />
+                                    <input type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)}/>
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Year</h4>
-                                    <input type='text' placeholder={birthyear} />
+                                    <input type='text' onChange={(e) => this.handleChange('birthyear', e.target.value)} />
                                 </div>
                             </div>
 
@@ -141,10 +140,4 @@ class Profile extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
-}
-
-export default connect(mapStateToProps, { getUserInfo })(Profile);
+export default Profile;

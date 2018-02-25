@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import Header from '../Header'
-import { connect } from 'react-redux';
-import { getUserInfo } from '../../ducks/reducer';
 import './Dashboard.css';
-
+import axios from 'axios';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
+            user: {}
         }
     }
 
     componentDidMount() {
-        this.props.getUserInfo()
+        axios.get('/auth/me').then(res => {
+            this.setState({
+                user: res.data
+            })
+        })
     }
 
     render() {
-        // console.log(this.props.user)
-        const { firstname, lastname, picture } = this.props.user;
 
         const { history } = this.props;
+
+
+        const { picture, firstname, lastname, id } = this.state.user;
+
 
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
 
@@ -37,13 +41,14 @@ class Dashboard extends Component {
                             <div className='user-left'>{profilePic}</div>
 
                             <div className='user-right'>
-                                {firstname ? <h2>{firstname}</h2> : <h2>Brittany</h2>}
-                                {lastname ? <h2>{lastname}</h2> : <h2>Jones</h2>}
+                                {firstname ? <h2>{firstname}</h2> : null}
+                                {lastname ? <h2>{lastname}</h2> : null}
                                 <div className='edit-button-container'>
                                     <button
                                         className='edit-button'
-                                        onClick={() => history.push('/profile')}>Edit Profile
+                                        onClick={() => history.push(`/profile/${id}`)}>Edit Profile
                                         </button>
+
                                 </div>
                             </div>
 
@@ -61,11 +66,4 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    // console.log(state)
-    return {
-        user: state.user
-    }
-}
-
-export default connect(mapStateToProps, { getUserInfo })(Dashboard);
+export default Dashboard;

@@ -13,7 +13,7 @@
 1. Set up Auth0 on server.js
     - successful redirect to React app front end.
 2. Created basic structure for front-end routes.
-    - Had a problem with the front end running on the back end port which made the auth Redirect not want to work. Solved it by renaming the port variable in the .env file
+    - Had a problem with the front end running on the back end port which made the auth redirect not want to work. Solved it by renaming the port variable in the .env file to SERVER_PORT instead of PORT.
 
 ---
 
@@ -43,8 +43,23 @@
 4. Started adding handlers for inputs in edit section.
     - Need to finish setting up redux to handle the update request.
     - Haven't even touched server side of put request.
-        - Did create the sql edit_user but have not tested it.
+        - (Created the sql edit_user but have not tested it.)
 
+---
+
+#### February 24, 2018
+1. Spent all day unsuccessfully trying to get redux working on this project. :persevere:
+    - Back to the drawing board...
+
+---
+
+#### February 25, 2018
+1. Dashboard component. 
+    - It now makes the axios call to the server to get user data instead of going through redux.
+    - The 'Edit Profile' button sends the user id to the Profile component
+2. Profile Component
+    - Uses id from props.match.params to get user info from database then sets to state.
+    - No longer uses redux
 
 
   
