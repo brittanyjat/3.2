@@ -60,6 +60,15 @@
 2. Profile Component
     - Uses id from props.match.params to get user info from database then sets to state.
     - No longer uses redux
+    - I used setState in a new way! This way allows you to change keys on object:
+        ```javascript
+        this.setState(prevState => ({
+            user: {
+                ...prevState.user,
+                [prop]: value
+            }
+        }))
+        ```
 
 
   
