@@ -58,7 +58,7 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.state.user)
+        // console.log(this.state.user)
         const { firstname, lastname, picture, birthday, birthmonth, birthyear } = this.state.user;
 
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
@@ -94,11 +94,11 @@ class Profile extends Component {
                             <div className='left-right-edit'>
                                 <div className='profile-input'>
                                     <h4>First Name</h4>
-                                    <input type='text' value={firstname || ''} onChange={(e) => this.handleChange('firstname', e.target.value)} />
+                                    <input className='input' type='text' value={firstname || ''} onChange={(e) => this.handleChange('firstname', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Last Name</h4>
-                                    <input type='text' value={lastname || ''} onChange={(e) => this.handleChange('lastname', e.target.value)} />
+                                    <input className='input' type='text' value={lastname || ''} onChange={(e) => this.handleChange('lastname', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Gender</h4>
@@ -143,15 +143,15 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Day</h4>
-                                    <input type='text' value={birthday || ''} onChange={(e) => this.handleChange('birthday', e.target.value)} />
+                                    <input  className='input' type='text' value={birthday || ''} onChange={(e) => this.handleChange('birthday', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Month</h4>
-                                    <input type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)} />
+                                    <input  className='input' type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Year</h4>
-                                    <input type='text' value={birthyear || ''} onChange={(e) => this.handleChange('birthyear', e.target.value)} />
+                                    <input  className='input' type='text' value={birthyear || ''} onChange={(e) => this.handleChange('birthyear', e.target.value)} />
                                 </div>
                             </div>
 

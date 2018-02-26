@@ -76,6 +76,4 @@
 #### February 26, 2018
 1. Changed project to use the nickname from google instead of id.
 2. Update profile is now functional. 
-
-
-  
+3. Cancel button is now functional.

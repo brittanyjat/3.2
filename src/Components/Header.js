@@ -20,7 +20,7 @@ class Header extends React.Component {
                             alt='link-to-home'
                             onClick={() => history.push('/dashboard')}
                             className='header-icon' />
-                        <img src={search} alt='link-to-search' className='header-icon search' />
+                        <img src={search} alt='link-to-search' className='header-icon search' onClick={() => history.push('/search')}/>
                     </div>
 
                     <div className='header-center'>
