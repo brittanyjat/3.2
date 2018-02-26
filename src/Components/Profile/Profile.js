@@ -52,9 +52,13 @@ class Profile extends Component {
             })
     }
 
+    handleCancel(){
+        const { history } = this.props;
+        history.go();
+    }
 
     render() {
-        // console.log(this.state.user)
+        console.log(this.state.user)
         const { firstname, lastname, picture, birthday, birthmonth, birthyear } = this.state.user;
 
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
@@ -76,7 +80,7 @@ class Profile extends Component {
                             <div className='update-cancel-container'>
                                 <div className='update-cancel-subcontainer'>
                                     <button className='edit-update-button' onClick={() => this.handleUpdate()}>Update</button>
-                                    <button className='edit-update-button'>Cancel</button>
+                                    <button className='edit-update-button' onClick={() => this.handleCancel()}>Cancel</button>
                                 </div>
                             </div>
 
