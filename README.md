@@ -60,7 +60,7 @@
 2. Profile Component
     - Uses id from props.match.params to get user info from database then sets to state.
     - No longer uses redux
-    - I used setState in a new way! This way allows you to change keys on object:
+    - I used setState in a new way! This way allows you to change objects on state:
         ```javascript
         this.setState(prevState => ({
             user: {
@@ -69,6 +69,13 @@
             }
         }))
         ```
+    - it would be better to use the nickname from google instaed of id.
+
+---
+
+#### February 26, 2018
+1. Changed project to use the nickname from google instead of id.
+2. Update profile is now functional. 
 
 
   

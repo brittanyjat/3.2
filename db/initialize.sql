@@ -1,5 +1,5 @@
 CREATE TABLE users3 (
-    id VARCHAR(100) NOT NULL UNIQUE,
+    id VARCHAR(50) NOT NULL UNIQUE,
     picture VARCHAR(240),
     firstname VARCHAR(100),
     lastname VARCHAR(100),

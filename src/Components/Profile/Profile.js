@@ -4,16 +4,17 @@ import './Profile.css';
 import axios from 'axios';
 
 class Profile extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             user: {}
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const { id } = this.props.match.params;
         axios.get(`/api/profile/${id}`).then(res => {
             this.setState({
@@ -22,7 +23,7 @@ class Profile extends Component {
         })
     }
 
-    handleChange(prop, value){
+    handleChange(prop, value) {
         this.setState(prevState => ({
             user: {
                 ...prevState.user,
@@ -31,10 +32,30 @@ class Profile extends Component {
         }))
     }
 
+    handleUpdate() {
+        const { history } = this.props;
+        const { id } = this.props.match.params;
+        let body = {
+            firstname: this.state.user.firstname,
+            lastname: this.state.user.lastname,
+            gender: this.state.user.gender,
+            haircolor: this.state.user.haircolor,
+            eyecolor: this.state.user.eyecolor,
+            hobby: this.state.user.hobby,
+            birthday: this.state.user.birthday,
+            birthmonth: this.state.user.birthmonth,
+            birthyear: this.state.user.birthyear
+        }
+
+        axios.put(`/api/profile/${id}`, body).then(res => {
+                history.push(`/dashboard`)
+            })
+    }
+
 
     render() {
-        console.log(this.state.user)
-        const {firstname, lastname, picture, gender, haircolor, eyecolor, hobby, birthday, birthmonth, birthyear } = this.state.user;
+        // console.log(this.state.user)
+        const { firstname, lastname, picture, birthday, birthmonth, birthyear } = this.state.user;
 
         const profilePic = picture ? <img src={picture} alt='profilepic' className='profilepic' /> : <div className='profilepic'></div>;
 
@@ -54,7 +75,7 @@ class Profile extends Component {
 
                             <div className='update-cancel-container'>
                                 <div className='update-cancel-subcontainer'>
-                                    <button className='edit-update-button'>Update</button>
+                                    <button className='edit-update-button' onClick={() => this.handleUpdate()}>Update</button>
                                     <button className='edit-update-button'>Cancel</button>
                                 </div>
                             </div>
@@ -69,24 +90,24 @@ class Profile extends Component {
                             <div className='left-right-edit'>
                                 <div className='profile-input'>
                                     <h4>First Name</h4>
-                                    <input type='text'  value={firstname || ''} onChange={(e) => this.handleChange('firstname', e.target.value)}/>   
+                                    <input type='text' value={firstname || ''} onChange={(e) => this.handleChange('firstname', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Last Name</h4>
-                                    <input type='text' value={lastname || ''} onChange={(e) => this.handleChange('lastname', e.target.value)}/>
+                                    <input type='text' value={lastname || ''} onChange={(e) => this.handleChange('lastname', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Gender</h4>
-                                    <select value={gender || ''} onChange={(e) => this.handleChange('gender', e.target.value)}>
-                                        <option disabled>-- Select --</option>
+                                    <select onChange={(e) => this.handleChange('gender', e.target.value)}>
+                                        <option defaultValue='default'>-- Select --</option>
                                         <option value='Male'>Male</option>
                                         <option value='Female'>Female</option>
                                     </select>
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Hair Color</h4>
-                                    <select value={haircolor || ''} onChange={(e) => this.handleChange('haircolor', e.target.value)}>
-                                        <option disabled>-- Select --</option>
+                                    <select onChange={(e) => this.handleChange('haircolor', e.target.value)}>
+                                        <option defaultValue='default'>-- Select --</option>
                                         <option value='Brown'>Brown</option>
                                         <option value='Blue'>Blue</option>
                                         <option value='Green'>Green</option>
@@ -97,8 +118,8 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Eye Color</h4>
-                                    <select value={eyecolor || ''} onChange={(e) => this.handleChange('eyecolor', e.target.value)}>
-                                        <option disabled>-- Select --</option>
+                                    <select onChange={(e) => this.handleChange('eyecolor', e.target.value)}>
+                                        <option defaultValue='default'>-- Select --</option>
                                         <option value='Brown'>Brown</option>
                                         <option value='Blue'>Blue</option>
                                         <option value='Green'>Green</option>
@@ -108,8 +129,8 @@ class Profile extends Component {
                             <div className='left-right-edit'>
                                 <div className='profile-input'>
                                     <h4>Hobby</h4>
-                                    <select value={hobby || ''} onChange={(e) => this.handleChange('hobby', e.target.value)}>
-                                        <option disabled>-- Select --</option>
+                                    <select onChange={(e) => this.handleChange('hobby', e.target.value)}>
+                                        <option defaultValue='default'>-- Select --</option>
                                         <option value='Video Games'>Video Games</option>
                                         <option value='Hiking'>Hiking</option>
                                         <option value='Fishing'>Fishing</option>
@@ -118,15 +139,15 @@ class Profile extends Component {
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Day</h4>
-                                    <input type='text' onChange={(e) => this.handleChange('birthday', e.target.value)}/>
+                                    <input type='text' value={birthday || ''} onChange={(e) => this.handleChange('birthday', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Month</h4>
-                                    <input type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)}/>
+                                    <input type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
                                     <h4>Birthday Year</h4>
-                                    <input type='text' onChange={(e) => this.handleChange('birthyear', e.target.value)} />
+                                    <input type='text' value={birthyear || ''} onChange={(e) => this.handleChange('birthyear', e.target.value)} />
                                 </div>
                             </div>
 

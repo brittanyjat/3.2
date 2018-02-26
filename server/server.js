@@ -29,14 +29,14 @@ passport.use(new Auth0Strategy({
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
     // console.log(profile);
-    let { sub, given_name, family_name, picture } = profile._json;
+    let { given_name, family_name, picture, nickname } = profile._json;
     const db = app.get('db');
 
-    db.find_user([sub]).then(function (users) {
+    db.find_user([nickname]).then(function(users) {
         if (!users[0]) {
-            db.create_user([sub, given_name, family_name, picture]).then(user => {
+            db.create_user([nickname, given_name, family_name, picture]).then(user => {
                 return done(null, users[0].id)
-            })
+            }).catch(err => console.log)
         } else {
             return done(null, users[0].id)
         }
@@ -73,7 +73,9 @@ app.get('/auth/logout', function (req, res) {
     res.redirect('http://localhost:3000/')
 })
 
+
 app.get('/api/profile/:id', userController.user);
+app.put('/api/profile/:id', userController.edit);
 
 
 massive(CONNECTION_STRING).then(db => {
