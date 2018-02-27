@@ -77,3 +77,10 @@
 1. Changed project to use the nickname from google instead of id.
 2. Update profile is now functional. 
 3. Cancel button is now functional.
+4. Feeling defeated by search pagination....
+
+---
+
+#### February 27, 2018
+1. Created componentDidMount on Search component to get all users who aren't the current user. 
+    - I need to figure out how to get all users who aren't friends with the current user but for now this will do.

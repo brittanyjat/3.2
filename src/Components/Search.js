@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import './Search.css';
+import axios from 'axios';
 
 
 export default class Search extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            friends: {}
+        }
+    }
+
+    componentDidMount(){
+        axios.get(`/api/friends`).then(response => {
+            console.log(response)
+        })
+    }
+
+
     render() {
         return (
             <div>
@@ -16,7 +32,7 @@ export default class Search extends Component {
                                     <option>First Name</option>
                                     <option>Last Name</option>
                                 </select>
-                                <input className='input search-input'type='text'></input></div>
+                                <input className='input search-input' type='text'></input></div>
                             <div className='search-buttons'>
                                 <button className='edit-update-button wide-button'>Search</button>
                                 <button className='edit-update-button wide-button'>Reset</button>

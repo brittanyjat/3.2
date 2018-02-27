@@ -32,7 +32,7 @@ passport.use(new Auth0Strategy({
     let { given_name, family_name, picture, nickname } = profile._json;
     const db = app.get('db');
 
-    db.find_user([nickname]).then(function(users) {
+    db.find_user([nickname]).then(function (users) {
         if (!users[0]) {
             db.create_user([nickname, given_name, family_name, picture]).then(user => {
                 return done(null, users[0].id)
@@ -76,6 +76,8 @@ app.get('/auth/logout', function (req, res) {
 
 app.get('/api/profile/:id', userController.user);
 app.put('/api/profile/:id', userController.edit);
+
+app.get('/api/friends', userController.getUsers);
 
 
 massive(CONNECTION_STRING).then(db => {

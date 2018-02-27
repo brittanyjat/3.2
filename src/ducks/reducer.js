@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const initialState = {
     id: '',
@@ -15,9 +15,6 @@ const initialState = {
 };
 
 const GET_USER_INFO = 'GET_USER_INFO';
-
-
-// const UPDATE_USER = 'UPDATE_USER';
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
