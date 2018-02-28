@@ -77,7 +77,8 @@ app.get('/auth/logout', function (req, res) {
 app.get('/api/profile/:id', userController.user);
 app.put('/api/profile/:id', userController.edit);
 
-app.get('/api/friends', userController.getUsers);
+app.get('/api/count', userController.count);
+app.get('/api/friends', userController.pages)
 
 
 massive(CONNECTION_STRING).then(db => {

@@ -83,4 +83,6 @@
 
 #### February 27, 2018
 1. Created componentDidMount on Search component to get all users who aren't the current user. 
-    - I need to figure out how to get all users who aren't friends with the current user but for now this will do.
+2. FINALLY GOT PAGINATION ON SEARCH PAGE!
+3. Styled friends on search page. 
+    - need to add functionality to 'Add Friend' button.
