@@ -140,3 +140,33 @@ h2 {
   border-radius: 2px;
   margin-top: 30px;
 }
+
+.overflow {
+  margin-top: 25px;
+  height: 600px;
+  overflow: scroll;
+}
+
+.recommended-header {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sort-container {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sort {
+  width: 65%;
+  margin-left: 10px;
+}
+
+.recommended-title {
+  font-size: 25px;
+  margin-left: 15px;
+}

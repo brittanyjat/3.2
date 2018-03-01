@@ -16,16 +16,8 @@ module.exports = {
     },
     getUsers: (req, res) => {
         const db = req.app.get('db');
-
-        // console.log(req.user.id)
         db.get_all_users(req.user.id).then(users => {
             res.status(200).send(users)
-        }).catch(err => console.log(err))
-    },
-    count: (req, res) => {
-        const db = req.app.get('db');
-        db.user_count().then(count => {
-            res.status(200).send(count[0])
         }).catch(err => console.log(err))
     },
     pages: (req, res) => {
@@ -34,6 +26,26 @@ module.exports = {
 
         db.limit_offset(offset).then(friends => {
             res.status(200).send(friends)
+        }).catch(err => console.log(err))
+    },
+    myfriends: (req, res) => {
+        const db = req.app.get('db');
+        db.get_friends(req.user.id).then(friends => {
+            // console.log(friends)
+            res.status(200).send(friends)
+        }).catch(err => console.log(err))
+    },
+    recommended: (req, res) => {
+        const db = req.app.get('db');
+        db.dashboard(req.user.id).then(friends => {
+            res.status(200).send(friends)
+        }).catch(err => console.log(err))
+    },
+    add: (req, res) => {
+        const db = req.app.get('db');
+        const { id } = req.params;
+        db.add_friend(req.user.id, id).then(response => {
+            res.status(200).send(response)
         }).catch(err => console.log(err))
     }
 }

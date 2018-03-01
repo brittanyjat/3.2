@@ -86,3 +86,13 @@
 2. FINALLY GOT PAGINATION ON SEARCH PAGE!
 3. Styled friends on search page. 
     - need to add functionality to 'Add Friend' button.
+
+---
+
+#### Frebruary 28, 2018
+1. Dashboard Component
+    - Made db query to display recommended friends on dashboard (people not already the user's friend).
+    - Add friend button is functional
+2. Worked again on Search component.
+    - tried implementing _.where to search through users but may need to make the search requests through the db.
+
