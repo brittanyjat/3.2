@@ -13,8 +13,11 @@ export default class Search extends Component {
             users: [],
             allUsers: [],
             friends: [],
-            test: null
+            searchValue: '',
+            searchOn: false
         }
+        this.handleSearch = this.handleSearch.bind(this);
+        this.addFriend = this.addFriend.bind(this);
     }
 
     componentDidMount() {
@@ -30,13 +33,12 @@ export default class Search extends Component {
         });
         axios.get('/api/myfriends').then(res => {
             this.setState({
-                friends: res.data
+                friends: _.pluck(res.data, 'user2')
             })
         })
     }
 
     handleClick(index) {
-        // console.log(index)
         axios.get(`/api/friends?page=${index - 1}`).then(res => {
             this.setState({
                 users: res.data
@@ -45,16 +47,38 @@ export default class Search extends Component {
     }
 
     handleSearch() {
-        // console.log(this.state.test)
-        var {test} = this.state;
-        var searchResults = _.where(this.state.allUsers, {test: this.refs.search.value})
-        console.log(searchResults)
+        const { allUsers } = this.state;
+        const term = this.refs.search.value;
+
+        this.setState({ searchOn: true })
+
+        if (this.state.searchValue === 'firstname') {
+            this.setState({ users: _.where(allUsers, { firstname: term }) })
+        } else {
+            this.setState({ users: _.where(allUsers, { lastname: term }) })
+        }
+    }
+
+    addFriend(friend) {
+        // const { history } = this.props;
+        axios.post(`/api/friends/${friend}`).then(res => {
+            this.setState({ friends: [...this.state.friends, friend] })
+        })
+    }
+
+    deleteFriend(friend) {
+        var newArray = this.state.friends;
+        axios.delete(`/api/friends/${friend}`).then(res => {
+            this.setState({ friends: _.without(this.state.friends, friend)})
+        })
     }
 
     render() {
-        console.log(this.state.test)
         const { history } = this.props;
-        const totalPages = Math.ceil(this.state.allUsers.length / 10)
+        console.log(this.state.friends)
+
+        const totalPages = Math.ceil(this.state.searchOn ? this.state.users.length / 10 : this.state.allUsers.length / 10)
+
         var pages = []
         for (var i = 1; i <= totalPages; i++) {
             let index = i;
@@ -72,8 +96,9 @@ export default class Search extends Component {
                         <h3>{friend.lastname}</h3>
                     </div>
                     <div className='add-container'>
-                        {/* {this.state.friends.includes(friend.id) ? <button className='add-button'>Add Friend</button> : <button>Delete Friend</button>} */}
-                        <button className='add-button'>Add Friend</button>
+                        {this.state.friends.includes(friend.id) ? <button className='delete-button' onClick={() => this.deleteFriend(friend.id)}>Delete Friend</button>
+                            : <button className='add-button' onClick={() => this.addFriend(friend.id)}>Add Friend</button>}
+                        {/* <button className='add-button'>Add Friend</button> */}
                     </div>
 
                 </div>
@@ -87,7 +112,7 @@ export default class Search extends Component {
                     <div className='bottom-section search'>
                         <div className='search-top'>
                             <div className='search-child'>
-                                <select onChange={(e) => this.setState({test: e.target.value})}>
+                                <select onChange={(e) => this.setState({ searchValue: e.target.value })}>
                                     <option default>---Select---</option>
                                     <option value='firstname'>First Name</option>
                                     <option value='lastname'>Last Name</option>

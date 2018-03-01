@@ -82,7 +82,7 @@ app.get('/api/friends', userController.pages);
 app.get('/api/myfriends', userController.myfriends);
 app.get('/api/recommended', userController.recommended);
 app.post('/api/friends/:id', userController.add);
-
+app.delete('/api/friends/:id', userController.delete);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db);

@@ -47,5 +47,12 @@ module.exports = {
         db.add_friend(req.user.id, id).then(response => {
             res.status(200).send(response)
         }).catch(err => console.log(err))
+    },
+    delete: (req, res) => {
+        const db = req.app.get('db');
+        const {id} = req.params;
+        db.delete(req.user.id, id).then(response => {
+            res.status(200).send(response)
+        }).catch(err => console.log(err))
     }
 }
