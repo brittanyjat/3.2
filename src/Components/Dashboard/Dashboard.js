@@ -10,8 +10,7 @@ class Dashboard extends Component {
 
         this.state = {
             user: {},
-            allUsers: [],
-            friends: []
+            allUsers: []
         }
         this.sortUsers = this.sortUsers.bind(this);
     }

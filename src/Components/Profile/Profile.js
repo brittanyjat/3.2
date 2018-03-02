@@ -33,6 +33,7 @@ class Profile extends Component {
     }
 
     handleUpdate() {
+        console.log(this.state.user)
         const { history } = this.props;
         const { id } = this.props.match.params;
         let body = {
@@ -47,14 +48,19 @@ class Profile extends Component {
             birthyear: this.state.user.birthyear
         }
 
-        axios.put(`/api/profile/${id}`, body).then(res => {
+        if (this.state.user.birthday === null || this.state.user.birthmonth === null || this.state.user.birthyear === null) {
+            alert('You must enter your birth day, birth month, and birth year to edit profile')
+        } else {
+            axios.put(`/api/profile/${id}`, body).then(res => {
                 history.push(`/dashboard`)
             })
+        }
+
     }
 
-    handleCancel(){
+    handleCancel() {
         const { history } = this.props;
-        history.go();
+        history.push('/dashboard');
     }
 
     render() {
@@ -142,21 +148,18 @@ class Profile extends Component {
                                     </select>
                                 </div>
                                 <div className='profile-input'>
-                                    <h4>Birthday Day</h4>
-                                    <input  className='input' type='text' value={birthday || ''} onChange={(e) => this.handleChange('birthday', e.target.value)} />
+                                    <h4>Birthday Day *</h4>
+                                    <input className='input' type='text' value={birthday || ''} onChange={(e) => this.handleChange('birthday', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
-                                    <h4>Birthday Month</h4>
-                                    <input  className='input' type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)} />
+                                    <h4>Birthday Month *</h4>
+                                    <input className='input' type='text' value={birthmonth || ''} onChange={(e) => this.handleChange('birthmonth', e.target.value)} />
                                 </div>
                                 <div className='profile-input'>
-                                    <h4>Birthday Year</h4>
-                                    <input  className='input' type='text' value={birthyear || ''} onChange={(e) => this.handleChange('birthyear', e.target.value)} />
+                                    <h4>Birthday Year *</h4>
+                                    <input className='input' type='text' value={birthyear || ''} onChange={(e) => this.handleChange('birthyear', e.target.value)} />
                                 </div>
                             </div>
-
-                            <div className='right-edit'></div>
-
                         </div>
                     </div>
                 </div>

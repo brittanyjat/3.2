@@ -16,8 +16,11 @@ export default class Search extends Component {
             searchValue: '',
             searchOn: false
         }
+
         this.handleSearch = this.handleSearch.bind(this);
         this.addFriend = this.addFriend.bind(this);
+        this.deleteFriend = this.deleteFriend.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     componentDidMount() {
@@ -67,15 +70,24 @@ export default class Search extends Component {
     }
 
     deleteFriend(friend) {
-        var newArray = this.state.friends;
         axios.delete(`/api/friends/${friend}`).then(res => {
-            this.setState({ friends: _.without(this.state.friends, friend)})
+            this.setState({ friends: _.without(this.state.friends, friend) })
         })
     }
 
+    reset(){
+        axios.get('/api/friends?page=0').then(res => {
+            this.setState({
+                users: res.data,
+                searchOn: false,
+                searchValue: ''
+            })
+            this.refs.search.value = ''
+        });
+    }
+
     render() {
-        const { history } = this.props;
-        console.log(this.state.friends)
+        // const { history } = this.props;
 
         const totalPages = Math.ceil(this.state.searchOn ? this.state.users.length / 10 : this.state.allUsers.length / 10)
 
@@ -96,9 +108,9 @@ export default class Search extends Component {
                         <h3>{friend.lastname}</h3>
                     </div>
                     <div className='add-container'>
-                        {this.state.friends.includes(friend.id) ? <button className='delete-button' onClick={() => this.deleteFriend(friend.id)}>Delete Friend</button>
+                        {this.state.friends.includes(friend.id)
+                            ? <button className='delete-button' onClick={() => this.deleteFriend(friend.id)}>Delete Friend</button>
                             : <button className='add-button' onClick={() => this.addFriend(friend.id)}>Add Friend</button>}
-                        {/* <button className='add-button'>Add Friend</button> */}
                     </div>
 
                 </div>
@@ -113,7 +125,7 @@ export default class Search extends Component {
                         <div className='search-top'>
                             <div className='search-child'>
                                 <select onChange={(e) => this.setState({ searchValue: e.target.value })}>
-                                    <option default>---Select---</option>
+                                    <option default value=''>---Select---</option>
                                     <option value='firstname'>First Name</option>
                                     <option value='lastname'>Last Name</option>
                                 </select>
@@ -122,10 +134,11 @@ export default class Search extends Component {
 
                             <div className='search-buttons'>
                                 <button className='edit-update-button wide-button' onClick={() => this.handleSearch()}>Search</button>
-                                <button className='edit-update-button wide-button' onClick={() => history.go()}>Reset</button>
+                                <button className='edit-update-button wide-button' onClick={() => this.reset()}>Reset</button>
                             </div>
                         </div>
-                        <div className='search-friends'>{friendDisplay}
+                        <div className='search-friends'>
+                            {friendDisplay}
                         </div>
                         <div className='page-button-container'>
                             {pages}

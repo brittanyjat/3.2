@@ -12,6 +12,8 @@ const userController = require('./controllers/user');
 
 app.use(bodyParser.json());
 
+app.use(express.static(`${__dirname}/..build`));
+
 app.use(session({
     secret: SECRET,
     resave: false,
@@ -35,7 +37,7 @@ passport.use(new Auth0Strategy({
     db.find_user([nickname]).then(function (users) {
         if (!users[0]) {
             db.create_user([nickname, given_name, family_name, picture]).then(user => {
-                return done(null, users[0].id)
+                return done(null, user[0].id)
             }).catch(err => console.log)
         } else {
             return done(null, users[0].id)

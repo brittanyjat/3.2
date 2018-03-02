@@ -89,10 +89,29 @@
 
 ---
 
-#### Frebruary 28, 2018
+#### February 28, 2018
 1. Dashboard Component
     - Made db query to display recommended friends on dashboard (people not already the user's friend).
     - Add friend button is functional
 2. Worked again on Search component.
     - tried implementing _.where to search through users but may need to make the search requests through the db.
 
+---
+
+#### March 1, 2018
+1. Search Component
+    - Used ternary to either add or delete friend.
+    - add and delete buttons live update.
+    - Styled delete button.
+    - Need to fine-tune reset button.
+2. Realized the create user on server is a little buggy. Need to fix.
+3. Need to add alert on edit component if birthday is not entered.
+
+---
+
+#### March 2, 2018
+1. Fixed bug in server that wasn't redirecting after new user created
+2. Finished edit profile 
+    - it now alerts user that birthday is require to edit profile.
+
+    
